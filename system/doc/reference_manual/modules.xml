@@ -167,6 +167,14 @@ fact(0) ->           %  |
         the original user-written file from which the source program
         was produced.</p>
     </section>
+      
+    <section>
+        <title>Types and function specifications</title>
+        <p>The current release implements types and function specifications 
+            as defined by <link xmlns:xlink="http://www.w3.org/1999/xlink"
+            xlink:href="http://www.erlang.org/eeps/eep-0008.html">EEP8</link>. 
+        </p>
+    </section>
   </section>
 
   <section>
