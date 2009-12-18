@@ -1059,22 +1059,24 @@ make_and_set_list([], _) ->
 
 encode_octet_string(C,{_Name,Val}) ->
     encode_octet_string(C,Val);
+encode_octet_string(C,Val) when is_list(Val) ->
+    encode_octet_string(C,list_to_binary(Val));
 encode_octet_string(C,Val) ->
     case get_constraint(C,'SizeConstraint') of
 	0 ->
 	    <<>>;
 	1 ->
-	    list_to_binary(Val);
+	    Val;
 	2 ->
-	    list_to_binary(Val);
-	Sv when Sv =<65535, Sv == length(Val) -> % fixed length
-	    list_to_binary(Val);
+	    Val;
+	Sv when Sv =<65535, Sv == size(Val) -> % fixed length
+	    Val;
 	VR = {_,_}  ->
-	    [encode_length(VR,length(Val)),list_to_binary(Val)];
+	    [encode_length(VR,size(Val)),Val];
 	Sv when is_list(Sv) ->
-	    [encode_length({hd(Sv),lists:max(Sv)},length(Val)),list_to_binary(Val)];
+	    [encode_length({hd(Sv),lists:max(Sv)},size(Val)),Val];
 	no  ->
-	    [encode_length(undefined,length(Val)),list_to_binary(Val)]
+	    [encode_length(undefined,size(Val)),Val]
     end.
 
 decode_octet_string(Bytes,C) ->

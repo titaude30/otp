@@ -1414,6 +1414,8 @@ encode_octet_string(C,Val) ->
 
 encode_octet_string2(C,{_Name,Val}) ->
     encode_octet_string2(C,Val);
+encode_octet_string2(C,Val) when is_binary(Val) ->
+    encode_octet_string2(C,binary_to_list(Val));
 encode_octet_string2(C,Val) ->
     case get_constraint(C,'SizeConstraint') of
 	0 ->

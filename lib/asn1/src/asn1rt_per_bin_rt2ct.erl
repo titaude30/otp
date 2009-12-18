@@ -1329,6 +1329,8 @@ encode_octet_string(C,Bool,{_Name,Val}) ->
     encode_octet_string(C,Bool,Val);
 encode_octet_string(_C,true,_Val) -> 
     exit({error,{asn1,{'not_supported',extensionmarker}}});
+encode_octet_string(C,Bool,Val) when is_binary(Val) ->
+    encode_octet_string(C,Bool,binary_to_list(Val));
 encode_octet_string(SZ={_,_},false,Val) ->
 %    [encode_length(SZ,length(Val)),align,
 %	     {octets,Val}];

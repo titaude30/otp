@@ -100,6 +100,12 @@ gen_encode_user(Erules,D) when is_record(D,typedef) ->
 	    emit({nl,"'enc_",asn1ct_gen:list2name(Typename),"'({'",asn1ct_gen:list2name(Typename),"',Val}) ->",nl}),
 	    emit({"'enc_",asn1ct_gen:list2name(Typename),"'(Val);",nl,nl})
     end,
+    case Def#type.def of
+        'OCTET STRING' ->
+            emit({"'enc_",asn1ct_gen:list2name(Typename),"'(Val) when is_binary(Val) ->",nl}),
+            emit({"'enc_",asn1ct_gen:list2name(Typename),"'(binary_to_list(Val));",nl,nl});
+        _ -> ok
+    end,
     emit({"'enc_",asn1ct_gen:list2name(Typename),"'(Val) ->",nl}),
     case asn1ct_gen:type(InnerType) of
 	{primitive,bif} ->
