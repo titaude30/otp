@@ -954,6 +954,7 @@ enc_opt(multicast_ttl)   -> ?UDP_OPT_MULTICAST_TTL;
 enc_opt(multicast_loop)  -> ?UDP_OPT_MULTICAST_LOOP;
 enc_opt(add_membership)  -> ?UDP_OPT_ADD_MEMBERSHIP;
 enc_opt(drop_membership) -> ?UDP_OPT_DROP_MEMBERSHIP;
+enc_opt(mtu)             -> ?INET_OPT_MTU;
 enc_opt(buffer)          -> ?INET_LOPT_BUFFER;
 enc_opt(header)          -> ?INET_LOPT_HEADER;
 enc_opt(active)          -> ?INET_LOPT_ACTIVE;
@@ -1008,6 +1009,7 @@ dec_opt(?UDP_OPT_MULTICAST_TTL)   -> multicast_ttl;
 dec_opt(?UDP_OPT_MULTICAST_LOOP)  -> multicast_loop;
 dec_opt(?UDP_OPT_ADD_MEMBERSHIP)  -> add_membership;
 dec_opt(?UDP_OPT_DROP_MEMBERSHIP) -> drop_membership;
+dec_opt(?INET_OPT_MTU)            -> mtu;
 dec_opt(?INET_LOPT_BUFFER)        -> buffer;
 dec_opt(?INET_LOPT_HEADER)        -> header;
 dec_opt(?INET_LOPT_ACTIVE)        -> active;
@@ -1078,6 +1080,8 @@ type_opt_1(multicast_loop)  -> bool;
 type_opt_1(multicast_if)    -> ip;
 type_opt_1(add_membership)  -> {ip,ip};
 type_opt_1(drop_membership) -> {ip,ip};
+%% end of multicast
+type_opt_1(mtu)             -> int;
 %% driver options
 type_opt_1(header)          -> uint;
 type_opt_1(buffer)          -> int;

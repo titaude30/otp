@@ -189,6 +189,10 @@ static unsigned long one_value = 1;
 #ifndef _OSE_
 #include <sys/socket.h>
 #include <netinet/in.h>
+#ifdef LINUX
+/* missing IP_MTU in bits/in.h */
+#define IP_MTU 14
+#endif
 #else
 /* datatypes and macros from Solaris socket.h */
 struct  linger {
